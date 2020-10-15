@@ -3,14 +3,14 @@
 #include <stdlib.h>
 
 
-// 市町村別データを入れる構造体
+// ?s??????f?[?^??????\????
 typedef struct {
-    int id; //  市町村ID
-    char pref[13];  // 県名
-    char name[19];  // 市町村名
-    int population; // 人口
-    int m_population;   // 男性人口
-    int f_population;   // 女性人口
+    int id; //  ?s????ID
+    char pref[13];  // ????
+    char name[19];  // ?s??????
+    int population; // ?l??
+    int m_population;   // ?j???l??
+    int f_population;   // ?????l??
 } City;
 
 #define DEBUG
@@ -43,9 +43,9 @@ int LoadData(City arrayCity[])
         return -1;
     }
 
-    int cn = 0; // 市の数
+    int cn = 0; // ?s???
     while(fgets(buf,sizeof(buf),fp) != NULL){
-        sscanf(buf,"%d,%[^,],%[^,],%d,%d,%d", &(arrayCity[cn].id), arrayCity[cn].pref, arrayCity[cn].name, &(arrayCity[cn].population), &(arrayCity[cn].m_population), &(arrayCity[cn].f_population));
+        sscanf(buf,"%d,%s,%s,%d,%d,%d", &(arrayCity[cn].id), arrayCity[cn].pref, arrayCity[cn].name, &(arrayCity[cn].population), &(arrayCity[cn].m_population), &(arrayCity[cn].f_population));
 #ifdef DEBUG
         PrintCity(arrayCity[cn]);
 #endif
@@ -64,16 +64,39 @@ int LoadData(City arrayCity[])
 
 int LinearSearch(int key, City arrayCity[], int size)
 {
-    //  ここを実装する
+    //  ??????????????
+    int pos;
+    int result = -1;
 
-
+    for(pos=0;pos<size;pos++){
+        if(key==arrayCity[pos].id){
+            result = pos;
+            break;
+        }
+    }
+    return result;
 }
 
 int BinarySearch(int key, City arrayCity[], int left, int right)
 {
-    //  ここを実装する
+    //  ??????????????
+    int pos;
+    int result = -1;
+    left = 0;
+    right = MAX_CITY - 1;
 
-
+    while (left <= right){
+        pos = left + (right - left) / 2;
+        if(key==arrayCity[pos].id){
+            result = pos;
+            break;
+        }else if(key > arrayCity[pos].id){
+            left = pos + 1;
+        }else{
+            right = pos - 1;
+        }
+    }
+    return result;
 }
 
 
@@ -83,7 +106,7 @@ int main(void)
     int key;
     int result;
 
-    //  事前準備。データの読み込み、配列の作成
+    //  ???O?????B?f?[?^???????A?z????
     City* arrayCity;
     int cn;
     arrayCity = (City*)malloc(sizeof(City) * MAX_CITY);
@@ -92,7 +115,7 @@ int main(void)
         exit(EXIT_FAILURE);
     }
 
-    //  IDで検索
+    //  ID?????
     printf("\n===== linear search =====\n");
     printf("City ID?");
     scanf("%d", &key);
@@ -113,7 +136,7 @@ int main(void)
         printf("city was not found\n");
     }
 
-    //  後処理
+    //  ????
     free(arrayCity);
 
     return 0;
