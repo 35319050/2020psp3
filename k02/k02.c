@@ -114,6 +114,7 @@ int SearchCityByID(Node* pList, int ID, City* pCity)
         {
             *pCity = pNode->city;
             result = pos;
+            break;
         }
     
     pNode = pNode->pNext;
