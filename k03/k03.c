@@ -42,6 +42,7 @@ char* BMSearch(char text[], char key[])
     int len1 = strlen(text);
     int len2 = strlen(key);
     int i,j = 0;
+    int start2,start3;
 
     for(int i; i<256; i++){
         table[i] = len2;
@@ -53,7 +54,7 @@ char* BMSearch(char text[], char key[])
     }
 
     start = len2-1;
-    while(start <= len1){
+    while(start <= len1-1){
         
         printf("%s\n",text);
         for(i=0;i<start-len2+1;i++){
@@ -61,6 +62,7 @@ char* BMSearch(char text[], char key[])
         }
         printf("%s\n",key);
 
+        start2 = start;
         for(pos = len2-1; pos >= 0; pos--){
             if(text[start] == key[pos]){
                 if(pos == 0){
@@ -73,6 +75,10 @@ char* BMSearch(char text[], char key[])
         }
 
         start = start + table[text[start]];
+        start3 = start;
+        if(start3==start2 || start3<start2){
+            start = start2+1;
+        }
     }
 
     return NULL;
