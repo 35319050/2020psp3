@@ -73,7 +73,6 @@ char* BMSearch(char text[], char key[])
         }
 
         start = start + table[text[start]];
-
     }
 
     return NULL;
