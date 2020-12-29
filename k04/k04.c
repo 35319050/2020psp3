@@ -95,7 +95,6 @@ void BubbleSort(City arrayCity[], int size)
             }
         }
     }
-    return &arrayCity;
 
 }
 
@@ -142,7 +141,7 @@ void QuickSort(City arrayCity[], int left, int right)
         QuickSort(arrayCity,left,j-1);
         QuickSort(arrayCity,j+1,right);
     }
-    return &arrayCity;
+    
 }
 
 
